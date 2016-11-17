@@ -11,7 +11,7 @@
             this.meta = 5000;
             this.historial = [];
             this.toggleMenu = () => {
-                $('.ui.sidebar').sidebar('toggle');
+                $('.ui.sidebar').sidebar('toggle'); 
             };
             this.iniciar = () => {
                 if(!/^([A-Za-z]{1,}[A-Za-z ]){1,5}[A-Za-z]{1,}$/.test(this.nombres)) {
