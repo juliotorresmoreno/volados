@@ -1,5 +1,89 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    div(ng-controller="appCtrl as app",class="oculto")
+        header.ui.header
+            center
+                .content
+                    h2= title
+
+        .ui.attached.stackable.menu
+            .ui.container
+                a.item(ng-click='app.cancelar()')
+                    i.home.icon
+                    |  Inicio
+                a.item(ng-click='app.historico()')
+                    i.grid.layout.icon
+                    |  Historico
+        div(ng-if="app.estado=='registro'")
+            br
+            .ui.container
+                .ui.raised.very.padded.text.container.segment
+                    h2.ui.header Registrate
+                    .field
+                        label Nombres
+                        .ui.fluid.icon.input
+                            input(ng-model='app.nombres', type='text')
+                    .field
+                        label Apellidos
+                        .ui.fluid.icon.input
+                            input(ng-model='app.apellidos', type='text')
+                    .field
+                        label Usuario
+                        .ui.fluid.icon.input
+                            input(ng-model='app.usuario', type='text')
+                    br
+                    button.ui.secondary.button(ng-click="app.iniciar()") Okay 
+                    button.ui.button(ng-click="app.cancelar()") Cancel
+        div(ng-if="app.estado=='juego'")
+            br
+            .ui.container
+                .ui.padded.container.segment
+                    table.ui.celled.striped.table
+                        thead
+                            tr
+                                th Numero
+                                th Ganaste
+                                th Numero aleatorio
+                                th Saldo anterior
+                                th Apuesta
+                                th Saldo
+                                th Saldo resultante
+                        tbody
+                            tr(ng-repeat="item in app.resultados")
+                                td(ng-bind="item.numero")
+                                td(ng-bind="item.ganaste")
+                                td(ng-bind="item.numero_aleatorio")
+                                td(ng-bind="item.saldo_anterior")
+                                td(ng-bind="item.apuesta")
+                                td(ng-bind="item.saldo")
+                                td(ng-bind="item.saldo_resultante")
+                    .ui Saldo: &nbsp;
+                        span.ui(ng-bind="app.saldo")
+                        | , te faltan &nbsp;
+                        span.ui(ng-bind="app.meta-app.saldo")
+                    br
+                    div(ng-if="app.saldo!=0&&app.saldo<app.meta")
+                        .field
+                            label Apostar &nbsp;
+                            .ui.icon.input
+                                input(ng-model='app.saldo_apuesta', type='text')
+                        br
+                        button.ui.secondary.button(ng-click="app.apostar()") Lanzar dados
+                    button.ui.secondary.button(ng-click="app.iniciar()",ng-if="app.saldo==0||app.saldo>=app.meta") Reiniciar
+        div(ng-if="app.estado=='historico'")
+            .ui.container
+                .ui.padded.container.segment
+                    table.ui.celled.striped.table
+                        thead
+                            tr
+                                th Usuario
+                                th Nombres
+                                th Apellidos
+                                th Resultado
+                        tbody
+                            tr(ng-repeat="item in app.historial")
+                                td(ng-bind="item.usuario")
+                                td(ng-bind="item.nombres")
+                                td(ng-bind="item.apellidos")
+                                td(ng-bind="item.resultado")

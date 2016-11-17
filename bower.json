@@ -1,0 +1,17 @@
+{
+  "name": "volados",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Julio Torres <jtorres990@gmail.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/juliotorresmoreno/volados",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
